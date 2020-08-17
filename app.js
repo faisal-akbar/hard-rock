@@ -19,7 +19,7 @@ async function fetchSongs(text) {
 const showResult = data => {
     if (data.total == 0) { // if no title/ artist found alert
         alertNotification('title-not-found', 'block');
-        setTimeout(clearNotification, 3000);
+        setTimeout(() => alertNotification('title-not-found', 'none'), 3000);
 
     } else {
         result.innerHTML = `
@@ -66,8 +66,7 @@ async function fetchLyrics(artist, songTitle) {
 
     if (data.error) {
         alertNotification('lyrics-not-found', 'block');
-        setTimeout(clearNotification, 3000);
-        alertNotification("reload-page", "inline-block");
+        setTimeout(() => alertNotification('lyrics-not-found', 'none'), 3000);
     } else {
         // Formatting lyrics
         const lyricsFormatter = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
@@ -94,7 +93,7 @@ searchBtn.addEventListener('click', () => {
         result.innerHTML = "";
         lyricsText.innerHTML = "";
         alertNotification('empty-input', 'block');
-        setTimeout(clearNotification, 3000);
+        setTimeout(() => alertNotification('empty-input', 'none'), 3000);
     } else {
         result.innerHTML = "";
         lyricsText.innerHTML = "";
@@ -104,13 +103,8 @@ searchBtn.addEventListener('click', () => {
 
 
 // Notification Alert
-
 const alertNotification = (id, value) => document.getElementById(id).style.display = value;
-const clearNotification = () => {
-    alertNotification('title-not-found', 'none');
-    alertNotification('lyrics-not-found', 'none');
-    alertNotification('empty-input', 'none');
-};
+
 
 
 
